@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    const artigo = sequelize.define('artigo', {
-      idArtigo: {
+    const Artigo = sequelize.define('artigo', {
+      id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -22,12 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.ENUM('em revisão', 'aprovado', 'rejeitado'),
         allowNull: false,
         defaultValue: 'em revisão'
-      },
-      nota: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 0
       }
     });
-    return artigo;
+    return Artigo;
   }
