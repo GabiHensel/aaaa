@@ -1,0 +1,8 @@
+{{#each artigos}}
+    <h2>{{this.titulo}}</h2>
+    <p><strong>Resumo:</strong> {{this.resumo}}</p>
+    <p><strong>Link:</strong> <a href="{{this.linkPDF}}">Ver artigo</a></p>
+    <p><strong>Status:</strong> {{this.status}}</p>
+    <p><strong>Autores:</strong> {{#each this.usuarios}}{{this.nome}}, {{/each}}</p>
+    <p><strong>Nota Final:</strong> {{#each this.avaliacaos}}{{this.notaFinal}}{{/each}}</p>
+{{/each}}
