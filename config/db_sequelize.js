@@ -10,9 +10,10 @@ db.sequelize = sequelize;
 db.Artigo = require('../models/artigo.js')(sequelize, Sequelize);
 db.Usuario = require('../models/usuario.js')(sequelize, Sequelize);
 db.Avaliacao = require('../models/avaliacao.js')(sequelize, Sequelize);
+db.AutorArtigo = require('../models/autorartigo.js')(sequelize, Sequelize);
 db.Artigo.hasMany(db.Avaliacao);
-db.Artigo.hasMany(db.Usuario);
 db.Avaliacao.belongsTo(db.Usuario);
+db.Artigo.belongsToMany(db.Usuario, {through: db.AutorArtigo});
 module.exports = db;
 
 
