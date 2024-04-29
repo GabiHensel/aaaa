@@ -28,3 +28,7 @@ router.delete("/usuarioDelete/:id", controllerUsuario.delete);
 router.get("/artigoCreate", controllerArtigo.getCreate);
 router.post("/artigoCreate", controllerArtigo.postCreate);
 router.get("/artigoList", controllerArtigo.getList);
+router.get("/artigoEdit/:id", controllerArtigo.getEdit);
+router.post("/artigoEdit/:id", controllerArtigo.postEdit);
+router.delete("/artigoDelete/:id", controllerArtigo.delete);
+

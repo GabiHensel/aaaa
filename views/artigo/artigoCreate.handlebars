@@ -12,11 +12,11 @@
     Link: <input type="text" name="linkPDF">
     <br><br>
     Autores:
-    <select name="autores" multiple>
-        {{#each usuarios}}
-            <option value="{{id}}">{{nome}}</option>
-        {{/each}}
-    </select>
+    <br><br>
+    {{#each usuarios}}
+        <input type="checkbox" name="autores" value="{{id}}">{{nome}}<br>
+    {{/each}}
     <br><br>
     <input type="submit" value="adicionar">
 </form>
+
