@@ -20,17 +20,23 @@ module.exports = {
 
   async postCreate(req, res) {
     try {
-      const { titulo, resumo, linkPDF, autores } = req.body;
-      const novoArtigo = await db.Artigo.create({ titulo, resumo, linkPDF });
-      const autoresArray = Array.isArray(autores) ? autores : [autores];
-      const autorArtigos = autoresArray.map(id => ({ artigoId: novoArtigo.id, usuarioId: id }));
-      await db.AutorArtigo.bulkCreate(autorArtigos);
-      res.redirect('/home');
+        const { titulo, resumo, linkPDF, autores } = req.body;
+        const autoresArray = Array.isArray(autores) ? autores : [autores];
+
+        // Adicione esta validação
+        if (autoresArray.length < 1 || autoresArray.length > 5) {
+            return res.status(400).send('Por favor, selecione entre 1 e 5 autores.');
+        }
+
+        const novoArtigo = await db.Artigo.create({ titulo, resumo, linkPDF });
+        const autorArtigos = autoresArray.map(id => ({ artigoId: novoArtigo.id, usuarioId: id }));
+        await db.AutorArtigo.bulkCreate(autorArtigos);
+        res.redirect('/home');
     } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
+        console.log(err);
+        res.status(500).send('Erro interno no servidor');
     }
-  },  
+}, 
 
   async getList(req, res) {
     try {

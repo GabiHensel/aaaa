@@ -1,9 +1,28 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function deleteUsuario(id) {
+    if (confirm('Tem certeza que deseja deletar este usuário?')) {
+        $.ajax({
+            url: '/usuarioDelete/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                if (result.message === 'Usuário deletado com sucesso') {
+                    window.location.reload(true);
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    }
+}
+</script>
 <table border="1px">
     <tr>
         <td>Nome</td>
         <td>Login</td>
         <td>Senha</td>
         <td>Tipo</td>
+        <td>Ações</td>
     </tr>
     {{#each usuarios}}
     <tr>
@@ -11,6 +30,10 @@
         <td>{{login}}</td>
         <td>{{senha}}</td>
         <td>{{tipoUsuario}}</td>
+        <td>
+            <a href="/usuarioEdit/{{id}}">Editar</a> |
+            <a href="#" onclick="deleteUsuario({{id}}); return false;">Deletar</a>        </td>
     </tr>
     {{/each}}
 </table>
+

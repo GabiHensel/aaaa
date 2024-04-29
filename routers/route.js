@@ -12,14 +12,19 @@ const controllerUsuario = require('../controllers/controllerUsuario.js');
 
 module.exports = router;
 
-router.get("/home",function(req,res){res.render('home')});
+router.get("/home", function(req, res) {
+    res.render('home');
+});
 
-router.get("/",controllerUsuario.getLogin);
-router.get("/login",controllerUsuario.postLogin);
-router.get("/usuarioCreate",controllerUsuario.getCreate);
-router.post("/usuarioCreate",controllerUsuario.postCreate);
-router.get("/usuarioList",controllerUsuario.getList);
+router.get("/", controllerUsuario.getLogin);
+router.post("/login", controllerUsuario.postLogin);
+router.get("/usuarioCreate", controllerUsuario.getCreate);
+router.post("/usuarioCreate", controllerUsuario.postCreate);
+router.get("/usuarioList", controllerUsuario.getList);
+router.get("/usuarioEdit/:id", controllerUsuario.getEdit); // Rota para exibir o formulário de edição
+router.post("/usuarioEdit/:id", controllerUsuario.postEdit); // Rota para processar a edição do usuário
+router.delete("/usuarioDelete/:id", controllerUsuario.delete);
 
-router.get("/artigoCreate",controllerArtigo.getCreate);
-router.post("/artigoCreate",controllerArtigo.postCreate);
-router.get("/artigoList",controllerArtigo.getList);
+router.get("/artigoCreate", controllerArtigo.getCreate);
+router.post("/artigoCreate", controllerArtigo.postCreate);
+router.get("/artigoList", controllerArtigo.getList);
