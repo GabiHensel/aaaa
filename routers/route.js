@@ -7,15 +7,17 @@ const controllerUsuario = require('../controllers/controllerUsuario.js');
 
 /*db.sequelize.sync({force: true}).then(() => {
     console.log('{ force: true }');
-});
-*/
+});*/
+
 
 module.exports = router;
 
 router.get("/home",function(req,res){res.render('home')});
 
 router.get("/",controllerUsuario.getLogin);
-router.get("/login",controllerUsuario.postLogin);
+router.post("/login", controllerUsuario.postLogin); // Rota POST para login
+router.get("/login", controllerUsuario.getLogin); // Rota GET para login
+
 router.get("/usuarioCreate",controllerUsuario.getCreate);
 router.post("/usuarioCreate",controllerUsuario.postCreate);
 router.get("/usuarioList",controllerUsuario.getList);

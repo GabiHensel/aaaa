@@ -20,11 +20,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(router); 
 
+app.use(session({
+  secret: 'suaChaveSecreta',
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use(
     express.urlencoded({
         extended: true
     })
 )
+
 app.listen(4000,function(){
     console.log("server online");
 });
