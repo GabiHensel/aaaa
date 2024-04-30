@@ -4,6 +4,7 @@ const db = require('../config/db_sequelize.js');
 const router = express.Router();
 const controllerArtigo = require('../controllers/controllerArtigo.js');
 const controllerUsuario = require('../controllers/controllerUsuario.js');
+const controllerAvaliacao = require('../controllers/controllerAvaliacao.js');
 
 /*db.sequelize.sync({force: true}).then(() => {
     console.log('{ force: true }');
@@ -32,3 +33,7 @@ router.get("/artigoEdit/:id", controllerArtigo.getEdit);
 router.post("/artigoEdit/:id", controllerArtigo.postEdit);
 router.delete("/artigoDelete/:id", controllerArtigo.delete);
 
+router.get("/atribuirAvaliador/:artigoId", controllerAvaliacao.getCreate);
+router.post("/atribuirAvaliador/:artigoId", controllerAvaliacao.postCreate);
+router.get('/editarAvaliacao/:id', controllerAvaliacao.getEdit);
+router.post('/editarAvaliacao/:id', controllerAvaliacao.postEdit);

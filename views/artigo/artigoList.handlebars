@@ -18,6 +18,8 @@ function deleteArtigo(id) {
         <td>Resumo</td>
         <td>Link</td>
         <td>Autores</td>
+        <td>Status</td>
+        <td>Nota</td>
         <td>Ações</td>
     </tr>
     {{#each artigos}}
@@ -30,11 +32,14 @@ function deleteArtigo(id) {
                 {{nome}}<br>
             {{/each}}
         </td>
+        <td>{{status}}</td>
+        <td>{{notaMedia}}</td>
+        <td></td>
         <td>
             <a href="/artigoEdit/{{id}}">Editar</a> |
             <a href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |
             <a href="/atribuirAvaliador/{{id}}">Atribuir Avaliador</a> |
-            <a href="/avaliar/{{id}}">Avaliar</a>
+            <a href="/editarAvaliacao/{{id}}">Avaliar</a>
         </td>
     </tr>
     {{/each}}
