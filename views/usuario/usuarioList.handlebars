@@ -16,6 +16,9 @@ function deleteUsuario(id) {
     }
 }
 </script>
+<head>
+    <link rel="stylesheet" type="text/css" href="listUsuario.css">
+</head>
 <table border="1px">
     <tr>
         <td>Nome</td>
@@ -31,8 +34,8 @@ function deleteUsuario(id) {
         <td>{{senha}}</td>
         <td>{{tipoUsuario}}</td>
         <td>
-            <a href="/usuarioEdit/{{id}}">Editar</a> |
-            <a href="#" onclick="deleteUsuario({{id}}); return false;">Deletar</a>        </td>
+            <a id="editBTN" href="/usuarioEdit/{{id}}">Editar</a> |
+            <a id="deleteBTN" href="#" onclick="deleteUsuario({{id}}); return false;">Deletar</a>        </td>
     </tr>
     {{/each}}
 </table>
