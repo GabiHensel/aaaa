@@ -1,3 +1,45 @@
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #editar, #deletar, #avaliador, #avaliar {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 5px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #editar:hover, #deletar:hover, #avaliador:hover, #avaliar:hover {
+            background-color: #0056b3;
+        }
+
+        #deletar {
+            background-color: #dc3545;
+        }
+
+        #deletar:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 function deleteArtigo(id) {
@@ -39,10 +81,10 @@ function deleteArtigo(id) {
     {{/each}}
   </td>
         <td>
-            <a href="/artigoEdit/{{id}}">Editar</a> |
-            <a href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |
-            <a href="/atribuirAvaliador/{{id}}">Atribuir Avaliador</a> |
-            <a href="/editarAvaliacao/{{id}}">Avaliar</a>
+            <a id="editar" href="/artigoEdit/{{id}}">Editar</a> |
+            <a id="deletar" href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |
+            <a id="avaliador" href="/atribuirAvaliador/{{id}}">Atribuir Avaliador</a> |
+            <a id="avaliar" href="/editarAvaliacao/{{id}}">Avaliar</a>
         </td>
     </tr>
     {{/each}}

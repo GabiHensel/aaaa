@@ -6,11 +6,6 @@ const controllerArtigo = require('../controllers/controllerArtigo.js');
 const controllerUsuario = require('../controllers/controllerUsuario.js');
 const controllerAvaliacao = require('../controllers/controllerAvaliacao.js');
 
-/*db.sequelize.sync({force: true}).then(() => {
-    console.log('{ force: true }');
-});
-*/
-
 module.exports = router;
 
 router.get("/home", function(req, res) {
@@ -22,8 +17,8 @@ router.post("/login", controllerUsuario.postLogin);
 router.get("/usuarioCreate", controllerUsuario.getCreate);
 router.post("/usuarioCreate", controllerUsuario.postCreate);
 router.get("/usuarioList", controllerUsuario.getList);
-router.get("/usuarioEdit/:id", controllerUsuario.getEdit); // Rota para exibir o formulário de edição
-router.post("/usuarioEdit/:id", controllerUsuario.postEdit); // Rota para processar a edição do usuário
+router.get("/usuarioEdit/:id", controllerUsuario.getEdit); 
+router.post("/usuarioEdit/:id", controllerUsuario.postEdit); 
 router.delete("/usuarioDelete/:id", controllerUsuario.delete);
 
 router.get("/artigoCreate", controllerArtigo.getCreate);

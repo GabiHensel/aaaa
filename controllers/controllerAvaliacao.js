@@ -19,15 +19,12 @@ module.exports = {
             let avaliadores = req.body.avaliadorId;
             const artigoId = req.params.artigoId;
     
-            // Se avaliadores não for um array, converta-o em um array
             if (!Array.isArray(avaliadores)) {
                 avaliadores = [avaliadores];
             }
     
-            // Busque todas as avaliações para este artigo
             const avaliacoes = await db.Avaliacao.findAll({ where: { artigoId: artigoId } });
-    
-            // Verifique se o número de avaliações é 3 ou mais
+
             if (avaliacoes.length >= 3) {
                 res.status(400).send('Um artigo pode ter no máximo 3 avaliações');
                 return;
@@ -53,9 +50,9 @@ module.exports = {
     },  
     async getEdit(req, res) {
         try {
-            const artigo = await db.Artigo.findByPk(req.params.id); // Encontre o artigo correspondente
+            const artigo = await db.Artigo.findByPk(req.params.id); 
             if (artigo) {
-                // Agora encontre a avaliação associada a este artigo
+                
                 const avaliacao = await db.Avaliacao.findOne({ where: { artigoId: artigo.id } });
                 if (avaliacao) {
                     res.render('avaliacao/editarAvaliacao', { avaliacao: avaliacao.toJSON() });
@@ -90,11 +87,9 @@ module.exports = {
             const avaliacao = await db.Avaliacao.findByPk(req.params.id);
             console.log(avaliacao);
             const artigo = await db.Artigo.findByPk(avaliacao.artigoId);
-    
-            // Busque todas as avaliações para este artigo
+
             const avaliacoes = await db.Avaliacao.findAll({ where: { artigoId: artigo.id } });
-    
-            // Verifique se todas as notas finais são maiores que 25
+
             const todasNotasMaioresQue25 = avaliacoes.every(avaliacao => avaliacao.notaFinal > 25);
     
             const status = todasNotasMaioresQue25 ? 'aprovado' : 'rejeitado';

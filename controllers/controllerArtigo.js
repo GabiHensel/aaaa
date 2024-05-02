@@ -23,7 +23,6 @@ module.exports = {
         const { titulo, resumo, linkPDF, autores } = req.body;
         const autoresArray = Array.isArray(autores) ? autores : [autores];
 
-        // Adicione esta validação
         if (autoresArray.length < 1 || autoresArray.length > 5) {
             return res.status(400).send('Por favor, selecione entre 1 e 5 autores.');
         }
@@ -44,13 +43,13 @@ async getList(req, res) {
       include: [
         {
           model: db.Usuario,
-          as: 'usuarios', // Altere 'autores' para 'usuarios'
+          as: 'usuarios', 
           through: { attributes: [] }
         },
         {
           model: db.Avaliacao,
           as: 'avaliacaos',
-          attributes: ['notaFinal'] // Inclua 'notaFinal' aqui
+          attributes: ['notaFinal'] 
         }
       ]
     });
@@ -92,7 +91,6 @@ async postEdit(req, res) {
         const { titulo, resumo, linkPDF, autores } = req.body;
         const autoresArray = Array.isArray(autores) ? autores : [autores];
 
-        // Adicione esta validação
         if (autoresArray.length < 1 || autoresArray.length > 5) {
             return res.status(400).send('Por favor, selecione entre 1 e 5 autores.');
         }
