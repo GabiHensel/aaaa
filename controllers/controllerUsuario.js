@@ -1,9 +1,8 @@
 const db = require('../config/db_sequelize.js');
-const path = require('path');
 
 module.exports = {
     async getLogin(req, res) {
-        res.render('usuario/login'); // Alteração aqui
+        res.render('usuario/login', { layout: 'noMenu.handlebars' });
     },
 
     async postLogin(req, res) {

@@ -2,7 +2,9 @@ const express = require('express');
 const router = require('./routers/route.js');
 const expressHandlebars = require('express-handlebars');
 const Handlebars = require('handlebars');
+const handlebarsHelpers = require('./handlebarsHelpers');
 const app = express();
+app.use(express.static('public'));
 
 let hbs = expressHandlebars.create({
   handlebars: Handlebars,
