@@ -4,7 +4,7 @@
     }
 </style>
 
-<form action="/artigoCreate" method="post">
+<form action="/artigoCreate" method="post" id="artigoForm">
     Titulo: <input type="text" name="titulo">
     <br> <br>
     Resumo: <input type="text" name="resumo">
@@ -14,9 +14,31 @@
     Autores:
     <br><br>
     {{#each usuarios}}
-        <input type="checkbox" name="autores" value="{{id}}">{{nome}}<br>
+        <input type="checkbox" class="autor-checkbox" name="autores" value="{{id}}">{{nome}}<br>
     {{/each}}
     <br><br>
     <input type="submit" value="adicionar">
 </form>
 
+<script>
+    // Obtenha todas as caixas de seleção
+    var checkboxes = document.querySelectorAll('.autor-checkbox');
+
+    // Obtenha o formulário
+    var form = document.getElementById('artigoForm');
+
+    // Adicione um ouvinte de evento ao formulário
+    form.addEventListener('submit', function(event) {
+        // Conte quantas caixas de seleção estão marcadas
+        var checkedCount = Array.from(checkboxes).filter(i => i.checked).length;
+
+        // Se menos de 1 ou mais de 5 caixas de seleção estiverem marcadas
+        if (checkedCount < 1 || checkedCount > 5) {
+            // Previna a submissão do formulário
+            event.preventDefault();
+
+            // Mostre uma mensagem de erro
+            alert('Você deve selecionar entre 1 e 5 autores');
+        }
+    });
+</script>

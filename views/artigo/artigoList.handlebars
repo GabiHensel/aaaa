@@ -22,19 +22,22 @@ function deleteArtigo(id) {
         <td>Nota</td>
         <td>Ações</td>
     </tr>
-    {{#each artigos}}
-    <tr>
-        <td>{{titulo}}</td>
-        <td>{{resumo}}</td>
-        <td>{{linkPDF}}</td>
-        <td>
-            {{#each usuarios}}
-                {{nome}}<br>
-            {{/each}}
-        </td>
-        <td>{{status}}</td>
-        <td>{{notaMedia}}</td>
-        <td></td>
+{{#each artigos}}
+<tr>
+  <td>{{titulo}}</td>
+  <td>{{resumo}}</td>
+  <td>{{linkPDF}}</td>
+  <td>
+    {{#each usuarios}}
+      {{nome}}<br>
+    {{/each}}
+  </td>
+  <td>{{status}}</td>
+  <td>
+    {{#each avaliacaos}}
+      {{notaFinal}}<br>
+    {{/each}}
+  </td>
         <td>
             <a href="/artigoEdit/{{id}}">Editar</a> |
             <a href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |

@@ -38,27 +38,29 @@ module.exports = {
     }
 }, 
 
-  async getList(req, res) {
-    try {
-      const artigos = await db.Artigo.findAll({
-        include: [
-          {
-            model: db.Usuario,
-            as: 'usuarios', // Altere 'autores' para 'usuarios'
-            through: { attributes: [] }
-          },
-          {
-            model: db.Avaliacao,
-            as: 'avaliacaos'
-          }
-        ]
-      });
-      res.render('artigo/artigoList', { artigos: artigos });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
-    }
-  },
+async getList(req, res) {
+  try {
+    const artigos = await db.Artigo.findAll({
+      include: [
+        {
+          model: db.Usuario,
+          as: 'usuarios', // Altere 'autores' para 'usuarios'
+          through: { attributes: [] }
+        },
+        {
+          model: db.Avaliacao,
+          as: 'avaliacaos',
+          attributes: ['notaFinal'] // Inclua 'notaFinal' aqui
+        }
+      ]
+    });
+    res.render('artigo/artigoList', { artigos: artigos });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+},
+
   async getEdit(req, res) {
     try {
         const artigo = await db.Artigo.findByPk(req.params.id, {

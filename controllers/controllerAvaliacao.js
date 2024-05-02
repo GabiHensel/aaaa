@@ -24,6 +24,15 @@ module.exports = {
                 avaliadores = [avaliadores];
             }
     
+            // Busque todas as avaliações para este artigo
+            const avaliacoes = await db.Avaliacao.findAll({ where: { artigoId: artigoId } });
+    
+            // Verifique se o número de avaliações é 3 ou mais
+            if (avaliacoes.length >= 3) {
+                res.status(400).send('Um artigo pode ter no máximo 3 avaliações');
+                return;
+            }
+    
             for (let i = 0; i < avaliadores.length; i++) {
                 await db.Avaliacao.create({ artigoId, usuarioId: avaliadores[i], nota1: 0, nota2: 0, notaFinal: 0 });
             }
@@ -32,7 +41,7 @@ module.exports = {
             console.log(err);
             res.status(500).send('Erro interno no servidor');
         }
-    },
+    },    
     async getList(req, res) {
         try {
             const avaliacoes = await db.Avaliacao.findAll();
@@ -44,25 +53,30 @@ module.exports = {
     },  
     async getEdit(req, res) {
         try {
-            const avaliacao = await db.Avaliacao.findByPk(req.params.id);
-            if (avaliacao) {
-                res.render('avaliacao/editarAvaliacao', { avaliacao: avaliacao.toJSON() });
+            const artigo = await db.Artigo.findByPk(req.params.id); // Encontre o artigo correspondente
+            if (artigo) {
+                // Agora encontre a avaliação associada a este artigo
+                const avaliacao = await db.Avaliacao.findOne({ where: { artigoId: artigo.id } });
+                if (avaliacao) {
+                    res.render('avaliacao/editarAvaliacao', { avaliacao: avaliacao.toJSON() });
+                } else {
+                    res.status(404).send('Avaliação não encontrada para este artigo');
+                }
             } else {
-                res.status(404).send('Avaliação não encontrada');
+                res.status(404).send('Artigo não encontrado');
             }
         } catch (err) {
             console.log(err);
             res.status(500).send('Erro interno no servidor');
         }
-    },
+    },    
 
     async postEdit(req, res) {
         try {
             console.log(req.body);
             const { nota1, nota2 } = req.body;
             const notaFinal = nota1 * nota2;
-            const status = notaFinal > 6 ? 'aprovado' : 'rejeitado';
-    
+            
             await db.Avaliacao.update({
                 nota1,
                 nota2,
@@ -76,6 +90,15 @@ module.exports = {
             const avaliacao = await db.Avaliacao.findByPk(req.params.id);
             console.log(avaliacao);
             const artigo = await db.Artigo.findByPk(avaliacao.artigoId);
+    
+            // Busque todas as avaliações para este artigo
+            const avaliacoes = await db.Avaliacao.findAll({ where: { artigoId: artigo.id } });
+    
+            // Verifique se todas as notas finais são maiores que 25
+            const todasNotasMaioresQue25 = avaliacoes.every(avaliacao => avaliacao.notaFinal > 25);
+    
+            const status = todasNotasMaioresQue25 ? 'aprovado' : 'rejeitado';
+    
             await artigo.update({status});
             await artigo.reload();
     
@@ -84,5 +107,5 @@ module.exports = {
             console.log(err);
             res.status(500).send('Erro interno no servidor');
         }
-    }
+    }    
 };

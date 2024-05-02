@@ -1,8 +1,33 @@
 <form action="/atribuirAvaliador/{{artigoId}}" method="post">
     <h2>Atribuir Avaliadores</h2>
     {{#each avaliadores}}
-        <input type="checkbox" id="{{this.id}}" name="avaliadorId" value="{{this.id}}">
+        <input type="checkbox" class="avaliador-checkbox" id="{{this.id}}" name="avaliadorId" value="{{this.id}}">
         <label for="{{this.id}}">{{this.nome}}</label><br>
     {{/each}}
     <input type="submit" value="Atribuir Avaliadores">
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Obtenha todas as caixas de seleção
+        var checkboxes = document.querySelectorAll('.avaliador-checkbox');
+
+        // Obtenha o formulário
+        var form = document.querySelector('form');
+
+        // Adicione um ouvinte de evento ao formulário
+        form.addEventListener('submit', function(event) {
+            // Conte quantas caixas de seleção estão marcadas
+            var checkedCount = Array.from(checkboxes).filter(i => i.checked).length;
+
+            // Se menos de 1 ou mais de 3 caixas de seleção estiverem marcadas
+            if (checkedCount < 1 || checkedCount > 3) {
+                // Previna a submissão do formulário
+                event.preventDefault();
+
+                // Mostre uma mensagem de erro
+                alert('Você deve selecionar entre 1 e 3 avaliadores');
+            }
+        });
+    });
+</script>
+
